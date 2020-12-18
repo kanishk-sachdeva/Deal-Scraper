@@ -59,7 +59,6 @@ rsa==4.6
 six==1.15.0
 soupsieve==2.0.1
 Telethon==1.16.4
-touch==0.0.0
 traitlets==5.0.5
 urllib3==1.25.11
 values==0.0.0
