@@ -15,6 +15,9 @@ from rfc3339 import rfc3339
 import telebot, random
 import urllib.parse,pymongo
 
+
+from matplotlib import pyplot as plt
+
 import asyncio
 
 # pipenv install dnspython pymongo paralleldots py-firebase-dynamic-links python-wordpress-xmlrpc pyTelegramBotAPI rfc3339
@@ -400,8 +403,7 @@ def dealsmaker(link):
                 hi = ""
                 # print("discussion or news")
 
-            asyncio.sleep(sleep_time)
-
+            plt.pause(300)
 
 allinoneparams = "?fields=id,is_created_from_merchant_hub,is_current_user_allow_to_edit_deal_wiki,is_current_user_following,permalink,title,retail_price,percent_off,shipping_and_handling,top_deal,posts_count,comments_count,created_at,created_at_in_millis,expiry_date_in_millis,score,description,deal_url,share_url,life_time_hotness,vote_value,deal_tag,added_to_channel,workflow_state,wiki_html,current_price,image_medium,view_count,user{id,login,image_medium,karma,current_title},store{name,image,permalink},festivals{permalink,name,image},deal_types,forum{permalink,name,forum_type},first_post_id,is_current_user_group,is_current_user_allow_to_edit,unapproved_topic_message,is_current_user_have_group,display_hotness_icon,system_groups,poll,show_create_poll_option,referral_state,current_referral,referral_submitted,wiki_created_or_updated_details"
 params = '?fields=id,deal_url,title,current_price,retail_price,percent_off,top_deal,image_medium,created_at,comments_count,life_time_hotness,user{id,login,image_medium,current_title},store{permalink,name,image},description,permalink,posts_count,vote_value,deal_types,view_count,app_versions,forum{forum_type},workflow_state,display_hotness_icon,referral_state'
