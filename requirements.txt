@@ -61,7 +61,6 @@ soupsieve==2.0.1
 Telethon==1.16.4
 traitlets==5.0.5
 urllib3==1.25.11
-values==0.0.0
 virtualenv==20.1.0
 virtualenv-clone==0.5.4
 Werkzeug==1.0.1
