@@ -15,6 +15,8 @@ from rfc3339 import rfc3339
 import telebot, random
 import urllib.parse,pymongo
 
+import asyncio
+
 # pipenv install dnspython pymongo paralleldots py-firebase-dynamic-links python-wordpress-xmlrpc pyTelegramBotAPI rfc3339
 
 #dnspython important requirement for pymongo
@@ -144,7 +146,7 @@ def dealsmaker(link):
     json_load = json.loads(respponse.text)
     data = json_load['deals']
 
-    sleep_time = 0
+    sleep_time = 300
 
     for res in data:
         id1 = res['id']
@@ -394,10 +396,11 @@ def dealsmaker(link):
                         u.close()
 
 
-                    time.sleep(sleep_time)
             else:
                 hi = ""
                 # print("discussion or news")
+
+            asyncio.sleep(sleep_time)
 
 
 allinoneparams = "?fields=id,is_created_from_merchant_hub,is_current_user_allow_to_edit_deal_wiki,is_current_user_following,permalink,title,retail_price,percent_off,shipping_and_handling,top_deal,posts_count,comments_count,created_at,created_at_in_millis,expiry_date_in_millis,score,description,deal_url,share_url,life_time_hotness,vote_value,deal_tag,added_to_channel,workflow_state,wiki_html,current_price,image_medium,view_count,user{id,login,image_medium,karma,current_title},store{name,image,permalink},festivals{permalink,name,image},deal_types,forum{permalink,name,forum_type},first_post_id,is_current_user_group,is_current_user_allow_to_edit,unapproved_topic_message,is_current_user_have_group,display_hotness_icon,system_groups,poll,show_create_poll_option,referral_state,current_referral,referral_submitted,wiki_created_or_updated_details"
