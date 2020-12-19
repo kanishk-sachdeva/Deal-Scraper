@@ -53,7 +53,7 @@ def get_cue_url(url1):
         url = cc.url
         cc.close()
         # print(url)
-        a = urllib.parse.quote(url, safe='')
+        a = url
         # so new cuelinks url will be
         b = 'https://linksredirect.com/?cid=90202&source=linkkit&url='
         complete_url = b + a
