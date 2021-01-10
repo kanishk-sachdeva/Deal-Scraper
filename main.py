@@ -15,6 +15,53 @@ from rfc3339 import rfc3339
 import telebot, random
 import urllib.parse,pymongo
 
+data = {
+        "type": "service_account",
+        "project_id": "proxxdeals",
+        "private_key_id": "231214b8b3b7bcf7ab69239c7fe82a0ab56727fa",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDK0zkf5Yw+6lOf\nktsWhkPUBRsN8LdC5E1TlE99sb9iEnmyhwVzK3/Y9obCLOtx9xHtLUkFQ0k7sjh/\n788umV7Y17jGqIuIq9wZiH+Gk1QJZnH+SpXZUhwE3dO2a1iaFcRvOU3l1XR+ZIOE\nddVFyr8Tygap6N4BJUySgRMlDJfGqj0PggvpG6+wOUcYAEcLWeO2kK7GLl205mZ+\n8Rcgn9vUu6GAqg27fbsWFAv/KJSqnmdQnuQA85AU4BVWf8pLfOxdmueaiHj4t07n\nUpiCtxlrdw/57voaI25NnrmHOx8bJBjNrFDISBqhci0DTDVj8BpZzCLeNFbgTLFL\nekKnyzStAgMBAAECggEAT1fo6WrtfbFCTFLxRPL6NsdWiZIIxvCztUX4AMZXhYCP\nvgCm56J1LYVnOy/CXT9Xcm58OcRUMjeqdZX0+RhDa9Wb8Y7+otUEUbK9nIIm5lR+\ntIkt7Kl7z4WNrDd7Hi/0u8Pxjr79hvJAJsHH0DkbnZyzFaXErzMNrOQ0fpJaD3tY\nA6Bfjns+ReE4gBoU4pC2ohdsxp2y0RgB0dV1yyq8uj0FuC7Lpd85Mf/U2Uy3Kk2W\n1HvCs2/4HIjm4ZT6zuhYrrkTlU358abq3B9n7MY8nrqCGSaMAjKVba77yqk8UiYV\nsGfGsyfKUquRD9gMECp2EsD7q4Q3iS1FOofJky8HCwKBgQDmd5UOdpciGqerycur\nMr9iRNXaRvGdg3zR8fBmNVBR7QTq/mPWQ/uIWZmA3LmjT1CDuat474SYdUeBKfQ5\noIIDwwblkk5lngxLqLcN3q0Qt3DXwZfkH/neXKLhK/pArVpMFMEGS0Hjx+u5abNL\nttA0D0Nu94rttp2iKEO1rtbfGwKBgQDhS6snlkmSaTQuAeLwRBcQ8i0S9ILCRaUB\nDGc9VlQgxj2BgmyFshBowUBdgAK6BwuOC1MQ99WSTULwqecm7IXGN+9gQ+nwxL+/\nR1okUugLesB9DXtEKX9BZ1nsLlQ0qef6JBKOsbPD50qIMhpS/CDuQJkVogNxgbTy\nSrM41L3P1wKBgF35VtMt8hRa8BGxWBX3vGgyj0zQ7sZ+jhABajgS9yxgzEeR8V22\nHMONXXVZC20W80qzE8NdTyDneX+mfspcs4cbKB3GGad/2Z2kLvg92y3czut7KhdA\nHp/YACZ2yzVCOnaZY9fQKg7aPzk8a3qtEZqYurNtxr2FYCN17Z4Qq9cPAoGBAM4x\nPrfAaB1Dg6oHt/dFmga8XlxWw8Whj95hx6rvc5d7V5dMEp5Z1YLKO2pXWid/gyfB\nXYjOCf0YEQfJt/B70AMV9lMYVOcyantZhjpwVkcLVVgeGo7Lm9f0CuyJii+YwOLC\nWOmX4XqOGDyF/mmsr0begDy4RoZ/u2d0zopYyk+JAoGBAJWq2mIWZm1HJff05S9t\n2lLryT8GxKT2cOG0qXeVZpcElihLcaC6SXBpVHJL5H2arRCkWfmCknM5mzXizzJz\ndZ+VaDjiatm23iNy7D6wYO0xpRZWR6kKeN7qndOIzfCCU4Ry/ElqaYLVeJIZBoTS\n3lQGwNFIX26Msi/RfdvFJUII\n-----END PRIVATE KEY-----\n",
+        "client_email": "firebase-adminsdk-8ze8n@proxxdeals.iam.gserviceaccount.com",
+        "client_id": "108430852090905850813",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-8ze8n%40proxxdeals.iam.gserviceaccount.com"
+    }
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+cred = credentials.Certificate(data)
+firebase_admin.initialize_app(cred, {"databaseURL": "https://ProXXDeals.firebaseio.com/"})
+
+db = firestore.client()
+
+# timestamp = u'timestamp': firestore.SERVER_TIMESTAMP
+
+doc_ref = db.collection(u'deals')
+def add_to_firestore(id,desi_id,title,discount_price,original_price,percent_off,details,top_deal_bool,hotness_level,deal_link,image_link,shortlink,expiry_date,category_dict,store_name,tbb_link,tags_dict,category_map,category_permalinks):
+
+    doc_ref.document(str(id)).set({
+        "id": "{}".format(id),
+        "desi_id": "{}".format(desi_id),
+        "title": "{}".format(title),
+        "discount_price": "{}".format(discount_price),
+        "original_price": "{}".format(original_price),
+        "category_dict": category_dict,
+        "tags_dict": tags_dict,
+        "percent_off": "{}".format(percent_off),
+        "details": "{}".format(details),
+        "top_Deal_bool": top_deal_bool,
+        "hotness_level": "{}".format(hotness_level),
+        "deal_link": "{}".format(deal_link),
+        "image_link": "{}".format(image_link),
+        "short_link": "{}".format(shortlink),
+        "expiry_date": "{}".format(expiry_date),
+        "store_name": "{}".format(store_name),
+        "tbb_link": "{}".format(tbb_link),
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "category_map": category_map,
+        "category_permalinks": category_permalinks,
+    })
 
 # pipenv install dnspython pymongo paralleldots py-firebase-dynamic-links python-wordpress-xmlrpc pyTelegramBotAPI rfc3339
 
@@ -61,8 +108,6 @@ def get_cue_url(url1):
     except:
         bot.send_message("1072778890", "CueLink Generation Error :{}".format(sys.exc_info()))
         return url1
-
-
 
 def get_flipkart_url(url):
     try:
@@ -133,7 +178,6 @@ def get_tags(text):
         exception = []
         exception.append('No Tags')
         return exception
-
 
 def dealsmaker(link):
     global imageid, storename, shortlink
@@ -324,8 +368,16 @@ def dealsmaker(link):
 
                     my_list = []
 
+                    category_Dict = dict({
+
+                    })
+                    category_permalinks = []
+
                     for categories in res['system_groups']:
                         my_list.append(categories['name'])
+                        category_Dict[categories['name']] = categories['permalink']
+                        category_permalinks.append(categories['permalink'])
+
 
                     if len(my_list) == 0:
                         my_list.append("No Category")
@@ -356,10 +408,27 @@ def dealsmaker(link):
                     except:
                         yup = "bhoot"
 
-
                     try:
                         if forum != "DISCUSSTION":
                             if forum != "NEWS":
+                                hotness = str(hotness)
+                                hotness = hotness.replace(".0", "")
+                                add_to_firestore(widget.id, widget.id, title, discount, original, percentoff, details,
+                                                 top_deal_bool, hotness, deallink, imagelink, shortlink, parsed_date,
+                                                 my_list, storename, tbbink, tags, category_Dict, category_permalinks)
+                    except:
+                        bot.send_message("1072778890", "[FS] Firestore Error :{}".format(sys.exc_info()))
+                        
+                    try:
+                        if forum != "DISCUSSTION":
+                            if forum != "NEWS":
+
+                                hotness = str(hotness)
+                                hotness = hotness.replace(".0", "")
+                                add_to_firestore(widget.id, widget.id, title, discount, original, percentoff, details,
+                                                 top_deal_bool, hotness, deallink, imagelink, shortlink, parsed_date,
+                                                 my_list, storename, tbbink, tags, category_Dict, category_permalinks)
+
                                 if is_number(discount):
                                     if is_number(original):
                                         bot.send_photo(channelid, image1,
@@ -389,6 +458,7 @@ def dealsmaker(link):
                     except:
                         bot.send_message("1072778890", "Telegram Error :{}".format(sys.exc_info()))
 
+                    
 
                     with open("dealsid.txt", 'a') as u:
                         u.write("{}\n".format(widget.id))
@@ -400,9 +470,7 @@ def dealsmaker(link):
                 # print("discussion or news")
 
             from matplotlib import pyplot as plt
-            plt.pause(300)
-
-
+            plt.pause(10)
 
 allinoneparams = "?fields=id,is_created_from_merchant_hub,is_current_user_allow_to_edit_deal_wiki,is_current_user_following,permalink,title,retail_price,percent_off,shipping_and_handling,top_deal,posts_count,comments_count,created_at,created_at_in_millis,expiry_date_in_millis,score,description,deal_url,share_url,life_time_hotness,vote_value,deal_tag,added_to_channel,workflow_state,wiki_html,current_price,image_medium,view_count,user{id,login,image_medium,karma,current_title},store{name,image,permalink},festivals{permalink,name,image},deal_types,forum{permalink,name,forum_type},first_post_id,is_current_user_group,is_current_user_allow_to_edit,unapproved_topic_message,is_current_user_have_group,display_hotness_icon,system_groups,poll,show_create_poll_option,referral_state,current_referral,referral_submitted,wiki_created_or_updated_details"
 params = '?fields=id,deal_url,title,current_price,retail_price,percent_off,top_deal,image_medium,created_at,comments_count,life_time_hotness,user{id,login,image_medium,current_title},store{permalink,name,image},description,permalink,posts_count,vote_value,deal_types,view_count,app_versions,forum{forum_type},workflow_state,display_hotness_icon,referral_state'
