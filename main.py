@@ -207,6 +207,7 @@ def dealsmaker(link):
                 'id': '{}'.format(id1),
             }
             result = mydb.insert_one(post_data)
+            storename = ""
 
             title = res['title']
             discount = res['current_price']
@@ -260,6 +261,7 @@ def dealsmaker(link):
             if res['store'] != None:
                 storename = res['store']['name']
                 storelink = res['store']['image']
+                storename = storename.replace(" ", "")
             else:
                 storelink = ''
 
@@ -403,10 +405,7 @@ def dealsmaker(link):
                     channelid = "-1001459616879"
 
                     image1 = requests.get("{}".format(imagelink), stream=True).content
-                    try:
-                        storename = storename.replace(" ", "")
-                    except:
-                        yup = "bhoot"
+                    
 
                     try:
                         if forum != "DISCUSSTION":
@@ -418,7 +417,7 @@ def dealsmaker(link):
                                                  my_list, storename, tbbink, tags, category_Dict, category_permalinks)
                     except:
                         bot.send_message("1072778890", "[FS] Firestore Error :{}".format(sys.exc_info()))
-                        
+
                     try:
                         if forum != "DISCUSSTION":
                             if forum != "NEWS":
@@ -458,7 +457,7 @@ def dealsmaker(link):
                     except:
                         bot.send_message("1072778890", "Telegram Error :{}".format(sys.exc_info()))
 
-                    
+
 
                     with open("dealsid.txt", 'a') as u:
                         u.write("{}\n".format(widget.id))
