@@ -6,3 +6,4 @@ pymongo==3.11.2
 dnspython==2.0.0
 rfc3339==6.2
 matplotlib==3.3.3
+firebase_admin==4.5.0
